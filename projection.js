@@ -26,12 +26,20 @@ window.onload = function () {
     this.update_motion = function () {
       this.x = this.x + vel_x/SPEED_CONSTANT;
       this.y = this.y + vel_y/SPEED_CONSTANT;
-      if (this.x - this.rad < 0 || this.x + this.rad > CVS.width) {
-        this.vel_x *= -1;
-      } 
-      if (this.y - this.rad < 0 || this.y + this.rad > CVS.height) {
-        this.vel_y *= -1;
-      }  
+      if (this.x - this.rad < 0)
+        this.vel_x = -1 * this.vel_x;
+        this.x = this.rad;
+      } else if (this.x + this.rad > CVS.width) {
+        this.vel_x = -1 * this.vel_x;
+        this.x = CVS.width - this.rad;
+      }
+      if (this.y - this.rad < 0)
+        this.vel_y = -1 * this.vel_y;
+        this.y = this.rad;
+      } else if (this.y + this.rad > CVS.height) {
+        this.vel_y = -1 * this.vel_y;
+        this.y = CVS.height - this.rad;
+      }
     }
     this.update_color = function () {
       this.color = this.color;
