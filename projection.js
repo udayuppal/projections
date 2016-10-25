@@ -24,8 +24,8 @@ window.onload = function () {
     this.color = color;
     this.complement = ('#FFFFFF' ^ this.color);
     this.update_motion = function () {
-      this.x = this.x + vel_x/SPEED_CONSTANT;
-      this.y = this.y + vel_y/SPEED_CONSTANT;
+      this.x = this.x + this.vel_x/SPEED_CONSTANT;
+      this.y = this.y + this.vel_y/SPEED_CONSTANT;
       if (this.x - this.rad < 0) {
         this.vel_x = -1 * this.vel_x;
         this.x = this.rad;
