@@ -65,6 +65,7 @@ window.onload = function () {
       ELEMS[i].update_motion();
       ELEMS[i].update_color();
     }
+    console.log(ELEMS[0].x, ELEMS[0].y, ELEMS[0].vel_x, ELEMS[0].vel_y);
     
     setTimeout(function() {main();}, 1000/FPS);
   }
