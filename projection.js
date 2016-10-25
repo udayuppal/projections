@@ -11,8 +11,8 @@ window.onload = function () {
   const NUM_ELEMS = 10;
   const MIN_RAD = 20;
   const MAX_RAD = 50;
-  const MAX_VEL = 1;
-  const MIN_VEL = -1;
+  const MAX_VEL = 100;
+  const MIN_VEL = -100;
   const BG = "black";
 
   function element(x, y, vel_x, vel_y, rad, color) {
