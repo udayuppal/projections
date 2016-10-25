@@ -42,9 +42,9 @@ window.onload = function () {
 
   for (var i = 0; i < NUM_ELEMS; i++) {
     var rad = Math.random() * (MAX_RAD - MIN_RAD) + MIN_RAD;
-    var max_x = CANVAS.width - rad;
+    var max_x = CVS.width - rad;
     var min_x = rad;
-    var max_y = CANVAS.height - rad;
+    var max_y = CVS.height - rad;
     var min_y = rad;
     var x = Math.random() * (max_x - min_x) + min_x;
     var y = Math.random() * (max_y - min_y) + min_y;
