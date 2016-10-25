@@ -11,8 +11,8 @@ window.onload = function () {
   const NUM_ELEMS = 10;
   const MIN_RAD = 20;
   const MAX_RAD = 50;
-  const MAX_VEL = 100;
-  const MIN_VEL = -100;
+  const MAX_VEL = 10;
+  const MIN_VEL = -10;
   const BG = "black";
 
   function element(x, y, vel_x, vel_y, rad, color) {
@@ -24,8 +24,8 @@ window.onload = function () {
     this.color = color;
     this.complement = ('#FFFFFF' ^ this.color);
     this.update_motion = function () {
-      this.x = x + vel_x/SPEED_CONSTANT;
-      this.y = y + vel_y/SPEED_CONSTANT;
+      this.x = this.x + vel_x/SPEED_CONSTANT;
+      this.y = this.y + vel_y/SPEED_CONSTANT;
     }
     this.update_color = function () {
       this.color = this.color;
