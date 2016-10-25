@@ -8,9 +8,9 @@ window.onload = function () {
   const FPS = 100;
   const SPEED_CONSTANT = 20;
   const STD_LINE_WIDTH = 3;
-  const NUM_ELEMS = 10;
-  const MIN_RAD = 20;
-  const MAX_RAD = 50;
+  const NUM_ELEMS = 30;
+  const MIN_RAD = 8;
+  const MAX_RAD = 32;
   const MAX_VEL = 10;
   const MIN_VEL = -10;
   const BG = "black";
@@ -26,6 +26,12 @@ window.onload = function () {
     this.update_motion = function () {
       this.x = this.x + vel_x/SPEED_CONSTANT;
       this.y = this.y + vel_y/SPEED_CONSTANT;
+      if (this.x - this.rad < 0 || this.x + this.rad > CVS.width) {
+        this.vel_x *= -1;
+      } 
+      if (this.y - this.rad < 0 || this.y + this.rad > CVS.height) {
+        this.vel_y *= -1;
+      }  
     }
     this.update_color = function () {
       this.color = this.color;
