@@ -52,7 +52,7 @@ window.onload = function () {
       CTX.arc(this.x, this.y, this.rad, 0, 2*Math.PI, false);
       CTX.fillStyle = this.color;
       CTX.fill();
-      CTX.endPath();
+      CTX.closePath();
     }
   }
 
