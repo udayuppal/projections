@@ -83,7 +83,7 @@ window.onload = function () {
       ELEMS[i].draw();
       ELEMS[i].update_motion();
       if (counter % COLOR_CHANGE == 0) {
-        hue = (hue + 1) % 360;
+        hue = ((hue + 1) % 360);
         ELEMS[i].update_color();
         counter = 0;
       }
