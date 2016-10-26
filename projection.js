@@ -4,6 +4,8 @@ window.onload = function () {
   var CTX = CVS.getContext("2d");
 
   var ELEMS = [];
+  var counter = 0;
+  var hue = Math.random() * 360;
   
   const FPS = 100;
   const SPEED_CONSTANT = 20;
@@ -13,19 +15,19 @@ window.onload = function () {
   const MAX_RAD = 32;
   const MAX_VEL = 10;
   const MIN_VEL = -10;
-  const HUE = Math.random() * 360;
   const SAT = 80;
   const LOW_LIGHT = 30;
   const HIGH_LIGHT = 70;
+  const COLOR_CHANGE = 20;
   const BG = "black";
 
-  function element(x, y, vel_x, vel_y, rad, color) {
+  function element(x, y, vel_x, vel_y, rad, lightness) {
     this.x = x;
     this.y = y;
     this.vel_x = vel_x;
     this.vel_y = vel_y;
     this.rad = rad;
-    this.color = color;
+    this.color = "hsl( " + hue + ", " + SAT + "%, " + lightness + "%)";
     this.update_motion = function () {
       this.x = this.x + this.vel_x/SPEED_CONSTANT;
       this.y = this.y + this.vel_y/SPEED_CONSTANT;
@@ -45,7 +47,7 @@ window.onload = function () {
       }
     }
     this.update_color = function () {
-      this.color = this.color;
+      this.color = "hsl( " + hue + ", " + SAT + "%, " + lightness + "%)";
     }
     this.draw = function () {
       CTX.beginPath();
@@ -67,8 +69,7 @@ window.onload = function () {
     var vel_x = Math.random() * (MAX_VEL - MIN_VEL) + MIN_VEL;
     var vel_y = Math.random() * (MAX_VEL - MIN_VEL) + MIN_VEL;
     var lightness = Math.random() * (HIGH_LIGHT - LOW_LIGHT) + LOW_LIGHT;
-    var color = "hsl( " + HUE + ", " + SAT + "%, " + lightness + "%)";
-    var bubble = new element(x, y, vel_x, vel_y, rad, color);
+    var bubble = new element(x, y, vel_x, vel_y, rad, lightness);
     ELEMS.push(bubble);
   }
 
@@ -76,11 +77,16 @@ window.onload = function () {
     CTX.clearRect(0, 0, CVS.width, CVS.height);
     CTX.fillStyle = BG;
     CTX.fillRect(0, 0, CVS.width, CVS.height);
- 
+    counter++;
+
     for (var i = 0; i < NUM_ELEMS; i++) {
       ELEMS[i].draw();
       ELEMS[i].update_motion();
-      ELEMS[i].update_color();
+      if (counter % COLOR_CHANGE == 0) {
+        hue = (hue + 1) % 360;
+        ELEMS[i].update_color();
+        counter = 0;
+      }
     }
     console.log(ELEMS[0].x, ELEMS[0].y, ELEMS[0].vel_x, ELEMS[0].vel_y);
     
