@@ -13,6 +13,10 @@ window.onload = function () {
   const MAX_RAD = 32;
   const MAX_VEL = 10;
   const MIN_VEL = -10;
+  const HUE = Math.random() * 360;
+  const SAT = 80;
+  const LOW_LIGHT = 40;
+  const HIGH_LIGHT = 60;
   const BG = "black";
 
   function element(x, y, vel_x, vel_y, rad, color) {
@@ -22,7 +26,6 @@ window.onload = function () {
     this.vel_y = vel_y;
     this.rad = rad;
     this.color = color;
-    this.complement = ('#FFFFFF' ^ this.color);
     this.update_motion = function () {
       this.x = this.x + this.vel_x/SPEED_CONSTANT;
       this.y = this.y + this.vel_y/SPEED_CONSTANT;
@@ -49,8 +52,7 @@ window.onload = function () {
       CTX.arc(this.x, this.y, this.rad, 0, 2*Math.PI, false);
       CTX.fillStyle = this.color;
       CTX.fill();
-      CTX.strokeStyle = this.complement;
-      CTX.stroke;
+      CTX.endPath();
     }
   }
 
@@ -64,7 +66,8 @@ window.onload = function () {
     var y = Math.random() * (max_y - min_y) + min_y;
     var vel_x = Math.random() * (MAX_VEL - MIN_VEL) + MIN_VEL;
     var vel_y = Math.random() * (MAX_VEL - MIN_VEL) + MIN_VEL;
-    var color = "#ABC123";
+    var lightness = Math.random() * (HIGH_LIGHT - LOW_LIGHT) + LOW_LIGHT;
+    var color = "hsl( " + HUE + ", " + SAT + "%, " + lightness + "%)";
     var bubble = new element(x, y, vel_x, vel_y, rad, color);
     ELEMS.push(bubble);
   }
