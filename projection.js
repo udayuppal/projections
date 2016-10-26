@@ -79,14 +79,14 @@ window.onload = function () {
     CTX.fillRect(0, 0, CVS.width, CVS.height);
     counter++;
 
+    if (counter % COLOR_CHANGE == 0) {
+      hue = ((hue + 1) % 360);
+      counter = 0;
+    }
     for (var i = 0; i < NUM_ELEMS; i++) {
       ELEMS[i].draw();
       ELEMS[i].update_motion();
-      if (counter % COLOR_CHANGE == 0) {
-        hue = ((hue + 1) % 360);
-        ELEMS[i].update_color();
-        counter = 0;
-      }
+      ELEMS[i].update_color();
     }
     console.log(hue);
     
