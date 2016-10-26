@@ -88,7 +88,7 @@ window.onload = function () {
         counter = 0;
       }
     }
-    console.log(ELEMS[0].x, ELEMS[0].y, ELEMS[0].vel_x, ELEMS[0].vel_y);
+    console.log(hue);
     
     setTimeout(function() {main();}, 1000/FPS);
   }
