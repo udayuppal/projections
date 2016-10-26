@@ -5,7 +5,7 @@ window.onload = function () {
 
   var ELEMS = [];
   var counter = 0;
-  var hue = Math.random() * 360;
+  var hue = Math.floor(Math.random() * 360);
   
   const FPS = 100;
   const SPEED_CONSTANT = 20;
