@@ -18,7 +18,7 @@ window.onload = function () {
   const SAT = 80;
   const LOW_LIGHT = 30;
   const HIGH_LIGHT = 70;
-  const COLOR_CHANGE = 20;
+  const COLOR_CHANGE = 500;
   const BG = "black";
 
   function element(x, y, vel_x, vel_y, rad, lightness) {
