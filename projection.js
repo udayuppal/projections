@@ -15,8 +15,8 @@ window.onload = function () {
   const MIN_VEL = -10;
   const HUE = Math.random() * 360;
   const SAT = 80;
-  const LOW_LIGHT = 40;
-  const HIGH_LIGHT = 60;
+  const LOW_LIGHT = 30;
+  const HIGH_LIGHT = 70;
   const BG = "black";
 
   function element(x, y, vel_x, vel_y, rad, color) {
