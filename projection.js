@@ -73,6 +73,7 @@ window.onload = function () {
             if (TO_REMOVE.indexOf(this) == -1) {
               TO_REMOVE.push(this);
             }
+            console.log(TO_REMOVE);
             return;
           }
         }
@@ -129,12 +130,10 @@ window.onload = function () {
       ELEMS[i].update_motion();
       ELEMS[i].update_color();
     }
-    console.log(TO_REMOVE);
     for (var j = 0; j < TO_REMOVE.length; j++) {
       ELEMS.splice(ELEMS.indexOf(TO_REMOVE[j]), 1);
     }
     TO_REMOVE = [];
-    console.log(TO_REMOVE);
 
     setTimeout(function() {main();}, 1000/FPS);
   }
