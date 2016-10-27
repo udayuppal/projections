@@ -37,8 +37,12 @@ window.onload = function () {
     this.rad = rad;
     this.color = "hsl( " + hue + ", " + SAT + "%, " + lightness + "%)";
     this.update_motion = function () {
+
+      //update position based on velocity
       this.x = this.x + this.vel_x/SPEED_CONSTANT;
       this.y = this.y + this.vel_y/SPEED_CONSTANT;
+
+      //edge collisions
       if (this.x - this.rad < 0) {
         this.vel_x = -1 * this.vel_x;
         this.x = this.rad;
@@ -53,6 +57,12 @@ window.onload = function () {
         this.vel_y = -1 * this.vel_y;
         this.y = CVS.height - this.rad;
       }
+
+      //update velocity based on big_ball
+      val dx = this.x - big_ball.x;
+      val dy = this.y - big_ball.y;
+      this.vel_x += (1/dx)*ACC_CONSTANT;
+      this.vel_y += (1/dy)*ACC_CONSTANT;
     }
     this.update_color = function () {
       this.color = "hsl( " + hue + ", " + SAT + "%, " + lightness + "%)";
