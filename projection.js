@@ -21,8 +21,8 @@ window.onload = function () {
   const LOW_LIGHT = 30;
   const HIGH_LIGHT = 70;
   const COLOR_CHANGE = 50;
-  const BIG_X = CVS.width;
-  const BIG_Y = CVS.height;
+  const BIG_X = CVS.width/2;
+  const BIG_Y = CVS.height/2;
   const BIG_VEL_X = 0;
   const BIG_VEL_Y = 0;
   const BIG_RAD = (MIN_RAD + MAX_RAD);
@@ -65,6 +65,23 @@ window.onload = function () {
       CTX.closePath();
     }
   }
+  
+  function big_element(x, y, rad) {
+    this.x = x;
+    this.y = y;
+    this.rad = rad;
+    this.color = "hsl( " + hue_comp + ", " + SAT + "%, " + BIG_LIGHT + "%)";
+    this.update_color = function () {
+      this.color = "hsl( " + hue_comp + ", " + SAT + "%, " + BIG_LIGHT + "%)";
+    }
+    this.draw = function () {
+      CTX.beginPath();
+      CTX.arc(this.x, this.y, this.rad, 0, 2*Math.PI, false);
+      CTX.fillStyle = this.color;
+      CTX.fill();
+      CTX.closePath();
+    }
+  }
 
   for (var i = 0; i < NUM_ELEMS; i++) {
     var rad = Math.random() * (MAX_RAD - MIN_RAD) + MIN_RAD;
@@ -80,7 +97,7 @@ window.onload = function () {
     var bubble = new element(x, y, vel_x, vel_y, rad, lightness);
     ELEMS.push(bubble);
   }
-  big_ball = new element(BIG_X, BIG_Y, BIG_VEL_X, BIG_VEL_Y, BIG_RAD, BIG_LIGHT);
+  big_ball = new big_element(BIG_X, BIG_Y, BIG_RAD);
 
   function main() {
     CTX.clearRect(0, 0, CVS.width, CVS.height);
@@ -94,14 +111,12 @@ window.onload = function () {
       counter = 0;
     }
     big_ball.draw();
-    big_ball.update_motion();
     big_ball.update_color();
     for (var i = 0; i < NUM_ELEMS; i++) {
       ELEMS[i].draw();
       ELEMS[i].update_motion();
       ELEMS[i].update_color();
     }
-    console.log(hue);
     
     setTimeout(function() {main();}, 1000/FPS);
   }
