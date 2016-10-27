@@ -60,8 +60,8 @@ window.onload = function () {
       }
 
       //update velocity based on big_ball
-      val dx = this.x - big_ball.x;
-      val dy = this.y - big_ball.y;
+      var dx = this.x - big_ball.x;
+      var dy = this.y - big_ball.y;
       this.vel_x += (1/dx)*ACC_CONSTANT;
       this.vel_y += (1/dy)*ACC_CONSTANT;
     }
