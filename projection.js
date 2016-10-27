@@ -126,6 +126,8 @@ window.onload = function () {
     }
     for (var i = 0; i < ELEMS.length; i++) {
       ELEMS[i].collide();
+    }
+    for (var o = 0; o < ELEMS.length; o++) {
       ELEMS[i].draw();
       ELEMS[i].update_motion();
       ELEMS[i].update_color();
