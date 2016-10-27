@@ -128,9 +128,9 @@ window.onload = function () {
       ELEMS[i].collide();
     }
     for (var o = 0; o < ELEMS.length; o++) {
-      ELEMS[i].draw();
-      ELEMS[i].update_motion();
-      ELEMS[i].update_color();
+      ELEMS[o].draw();
+      ELEMS[o].update_motion();
+      ELEMS[o].update_color();
     }
     for (var j = 0; j < TO_REMOVE.length; j++) {
       ELEMS.splice(ELEMS.indexOf(TO_REMOVE[j]), 1);
