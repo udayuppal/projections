@@ -122,7 +122,6 @@ window.onload = function () {
 
     if (counter % COLOR_CHANGE == 0) {
       hue = (hue + 1) % 360;
-      counter = 0;
     }
     for (var i = 0; i < ELEMS.length; i++) {
       ELEMS[i].collide();
@@ -148,6 +147,7 @@ window.onload = function () {
       ELEMS.splice(ELEMS.indexOf(TO_REMOVE[j]), 1);
     }
     TO_REMOVE = [];
+    console.log(counter);
 
     setTimeout(function() {main();}, 1000/FPS);
   }
