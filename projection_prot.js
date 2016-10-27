@@ -6,9 +6,12 @@ window.onload = function () {
   var ELEMS = [];
   var counter = 0;
   var hue = Math.floor(Math.random() * 360);
+  var hue_comp = (hue + 180) % 360;
+  var big_ball;
 
   const FPS = 100;
   const SPEED_CONSTANT = 20;
+  const ACC_CONSTANT = 15;
   const STD_LINE_WIDTH = 3;
   const NUM_ELEMS = 50;
   const MIN_RAD = 8;
@@ -19,6 +22,12 @@ window.onload = function () {
   const LOW_LIGHT = 30;
   const HIGH_LIGHT = 70;
   const COLOR_CHANGE = 50;
+  const BIG_X = CVS.width/2;
+  const BIG_Y = CVS.height/2;
+  const BIG_VEL_X = 0;
+  const BIG_VEL_Y = 0;
+  const BIG_RAD = (MIN_RAD + MAX_RAD);
+  const BIG_LIGHT = 50;
   const BG = "black";
 
   function element(x, y, vel_x, vel_y, rad, lightness) {
@@ -49,6 +58,13 @@ window.onload = function () {
         this.vel_y = -1 * this.vel_y;
         this.y = CVS.height - this.rad;
       }
+
+      //update velocity based on big_ball
+      var dx = this.x - big_ball.x;
+      var dy = this.y - big_ball.y;
+      var square_const = dx*dx + dy*dy;
+      this.vel_x += (1/square_const)*ACC_CONSTANT*dx;
+      this.vel_y += (1/square_const)*ACC_CONSTANT*dy;
     }
     this.update_color = function () {
       this.color = "hsl( " + hue + ", " + SAT + "%, " + lightness + "%)";
@@ -62,6 +78,23 @@ window.onload = function () {
     }
   }
   
+  function big_element(x, y, rad) {
+    this.x = x;
+    this.y = y;
+    this.rad = rad;
+    this.color = "hsl( " + hue_comp + ", " + SAT + "%, " + BIG_LIGHT + "%)";
+    this.update_color = function () {
+      this.color = "hsl( " + hue_comp + ", " + SAT + "%, " + BIG_LIGHT + "%)";
+    }
+    this.draw = function () {
+      CTX.beginPath();
+      CTX.arc(this.x, this.y, this.rad, 0, 2*Math.PI, false);
+      CTX.fillStyle = this.color;
+      CTX.fill();
+      CTX.closePath();
+    }
+  }
+
   for (var i = 0; i < NUM_ELEMS; i++) {
     var rad = Math.random() * (MAX_RAD - MIN_RAD) + MIN_RAD;
     var max_x = CVS.width - rad;
@@ -76,6 +109,7 @@ window.onload = function () {
     var bubble = new element(x, y, vel_x, vel_y, rad, lightness);
     ELEMS.push(bubble);
   }
+  big_ball = new big_element(BIG_X, BIG_Y, BIG_RAD);
 
   function main() {
     CTX.clearRect(0, 0, CVS.width, CVS.height);
@@ -85,8 +119,11 @@ window.onload = function () {
 
     if (counter % COLOR_CHANGE == 0) {
       hue = (hue + 1) % 360;
+      hue_comp = (hue_comp + 1) % 360;
       counter = 0;
     }
+    big_ball.draw();
+    big_ball.update_color();
     for (var i = 0; i < NUM_ELEMS; i++) {
       ELEMS[i].draw();
       ELEMS[i].update_motion();
