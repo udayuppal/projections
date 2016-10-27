@@ -67,7 +67,7 @@ window.onload = function () {
           var dy = this.y - ELEMS[i].y;
           var dist = Math.sqrt(dx*dx + dy*dy);
           if (dist <= rad + ELEMS[i].rad) {
-            if (TO_REMOVE.indexOf(ELEMS[i] == -1)) {
+            if (TO_REMOVE.indexOf(ELEMS[i]) == -1) {
               TO_REMOVE.push(ELEMS[i]);
             }
             if (TO_REMOVE.indexOf(this) == -1) {
@@ -126,11 +126,9 @@ window.onload = function () {
     }
     for (var i = 0; i < ELEMS.length; i++) {
       ELEMS[i].collide();
-    }
-    for (var o = 0; o < ELEMS.length; o++) {
-      ELEMS[o].draw();
-      ELEMS[o].update_motion();
-      ELEMS[o].update_color();
+      ELEMS[i].draw();
+      ELEMS[i].update_motion();
+      ELEMS[i].update_color();
     }
     for (var j = 0; j < TO_REMOVE.length; j++) {
       ELEMS.splice(ELEMS.indexOf(TO_REMOVE[j]), 1);
