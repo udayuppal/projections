@@ -9,7 +9,7 @@ window.onload = function () {
   var hue = Math.floor(Math.random() * 360);
 
   const FPS = 100;
-  const SPEED_CONSTANT = 20;
+  const SPEED_CONSTANT = 50;
   const STD_LINE_WIDTH = 3;
   const NUM_ELEMS = 30;
   const MIN_RAD = 15;
@@ -69,6 +69,7 @@ window.onload = function () {
           if (dist <= rad + ELEMS[i].rad) {
             TO_REMOVE.push(ELEMS[i]);
             TO_REMOVE.push(this);
+            console.log(TO_REMOVE);
             return;
           }
         }
