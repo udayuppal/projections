@@ -5,11 +5,12 @@ window.onload = function () {
 
   var ELEMS = [];
   var TO_REMOVE = [];
+  var BURSTS = [];
   var counter = 0;
   var hue = Math.floor(Math.random() * 360);
 
   const FPS = 100;
-  const SPEED_CONSTANT = 50;
+  const SPEED_CONSTANT = 40;
   const STD_LINE_WIDTH = 3;
   const NUM_ELEMS = 30;
   const MIN_RAD = 15;
@@ -20,6 +21,8 @@ window.onload = function () {
   const LOW_LIGHT = 30;
   const HIGH_LIGHT = 70;
   const COLOR_CHANGE = 50;
+  const BURST_CONSTANT = 10;
+  const LINE_WIDTH = 2;
   const BG = "black";
 
   function element(x, y, vel_x, vel_y, rad, lightness) {
@@ -61,22 +64,42 @@ window.onload = function () {
       CTX.closePath();
     }
     this.collide = function () {
-      for (var i = 0; i < ELEMS.length; i++) {
-        if (ELEMS[i] != this) {
-          var dx = this.x - ELEMS[i].x;
-          var dy = this.y - ELEMS[i].y;
-          var dist = Math.sqrt(dx*dx + dy*dy);
-          if (dist <= rad + ELEMS[i].rad) {
-            if (TO_REMOVE.indexOf(ELEMS[i]) == -1) {
-              TO_REMOVE.push(ELEMS[i]);
-            }
-            if (TO_REMOVE.indexOf(this) == -1) {
-              TO_REMOVE.push(this);
-            }
-            console.log(TO_REMOVE);
-            return;
-          }
+      for (var i = ELEMS.indexOf(this) + 1; i < ELEMS.length; i++) {
+        var dx = this.x - ELEMS[i].x;
+        var dy = this.y - ELEMS[i].y;
+        var dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist <= rad + ELEMS[i].rad) {
+          var x = 1;
+          var y = 1;
+          var rad = (this.rad + ELEMS[i].rad)/2;
+          var lightness = (this.lightness + ELEMS[i].lightness)/2;
+          BURSTS.push(new burst(x, y, rad, lightness));
+          TO_REMOVE.push(ELEMS[i]);
+          TO_REMOVE.push(this);
         }
+      }
+    }
+  }
+
+  function burst (x, y, rad, lightness) {
+    this.x = x;
+    this.y = y;
+    this.rad = 1;
+    this.timer = 1;
+    this.done = false;
+    this.color = "hsl( " + hue + ", " + SAT + "%, " + lightness + "%)";
+    this.draw_and_update = function {
+      if (this.timer == BURST_CONSTANT) {
+        this.done = true;
+      } else {
+        CTX.beginPath)_;
+        CTX.arc(this.x, this.y, this.rad, 0, 2*Math.PI, false);
+        CTX.strokeStyle = this.color;
+        CTX.lineWidth = LINE_WIDTH;
+        CTX.stroke;
+        CTX.closePath();
+        this.rad += rad/BURST_CONSTANT;
+        this.time += 1;
       }
     }
   }
@@ -145,6 +168,9 @@ window.onload = function () {
       var bubble = new element(x, y, vel_x, vel_y, rad, lightness);
       ELEMS.push(bubble);
       ELEMS.splice(ELEMS.indexOf(TO_REMOVE[j]), 1);
+    }
+    for (var k = 0; k < BURSTS.length; k++) {
+      BURSTS[k].draw_and_update();
     }
     TO_REMOVE = [];
     console.log(counter);
