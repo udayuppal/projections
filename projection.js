@@ -11,7 +11,7 @@ window.onload = function () {
 
   const FPS = 100;
   const SPEED_CONSTANT = 20;
-  const ACC_CONSTANT = 30;
+  const ACC_CONSTANT = 15;
   const STD_LINE_WIDTH = 3;
   const NUM_ELEMS = 50;
   const MIN_RAD = 8;
