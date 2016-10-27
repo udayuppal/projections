@@ -67,8 +67,12 @@ window.onload = function () {
           var dy = this.y - ELEMS[i].y;
           var dist = Math.sqrt(dx*dx + dy*dy);
           if (dist <= rad + ELEMS[i].rad) {
-            TO_REMOVE.push(ELEMS[i]);
-            TO_REMOVE.push(this);
+            if (TO_REMOVE.indexOf(ELEMS[i] == -1)) {
+              TO_REMOVE.push(ELEMS[i]);
+            }
+            if (TO_REMOVE.indexOf(this) == -1) {
+              TO_REMOVE.push(this);
+            }
             return;
           }
         }
