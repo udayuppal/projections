@@ -61,7 +61,7 @@ window.onload = function () {
       CTX.closePath();
     }
     this.collide = function () {
-      for (var i = 0; i < NUM_ELEMS; i++) {
+      for (var i = 0; i < ELEMS.length; i++) {
         if (ELEMS[i] != this) {
           var dx = this.x - ELEMS[i].x;
           var dy = this.y - ELEMS[i].y;
