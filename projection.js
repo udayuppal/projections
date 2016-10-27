@@ -6,7 +6,9 @@ window.onload = function () {
   var ELEMS = [];
   var counter = 0;
   var hue = Math.floor(Math.random() * 360);
-  
+  var hue_comp = (hue + 180) % 360;
+  var big_ball;
+
   const FPS = 100;
   const SPEED_CONSTANT = 20;
   const STD_LINE_WIDTH = 3;
@@ -19,6 +21,12 @@ window.onload = function () {
   const LOW_LIGHT = 30;
   const HIGH_LIGHT = 70;
   const COLOR_CHANGE = 50;
+  const BIG_X = CVS.width;
+  const BIG_Y = CVS.height;
+  const BIG_VEL_X = 0;
+  const BIG_VEL_Y = 0;
+  const BIG_RAD = (MIN_RAD + MAX_RAD);
+  const BIG_LIGHT = 50;
   const BG = "black";
 
   function element(x, y, vel_x, vel_y, rad, lightness) {
@@ -72,6 +80,7 @@ window.onload = function () {
     var bubble = new element(x, y, vel_x, vel_y, rad, lightness);
     ELEMS.push(bubble);
   }
+  big_ball = new element(BIG_X, BIG_Y, BIG_VEL_X, BIG_VEL_Y, BIG_RAD, BIG_LIGHT);
 
   function main() {
     CTX.clearRect(0, 0, CVS.width, CVS.height);
@@ -80,9 +89,13 @@ window.onload = function () {
     counter++;
 
     if (counter % COLOR_CHANGE == 0) {
-      hue = ((hue + 1) % 360);
+      hue = (hue + 1) % 360;
+      hue_comp = (hue_comp + 1) % 360;
       counter = 0;
     }
+    big_ball.draw();
+    big_ball.update_motion();
+    big_ball.update_color();
     for (var i = 0; i < NUM_ELEMS; i++) {
       ELEMS[i].draw();
       ELEMS[i].update_motion();
