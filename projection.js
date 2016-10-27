@@ -64,7 +64,7 @@ window.onload = function () {
         if (ELEMS[i] != this) {
           var dx = this.x - ELEMS[i].x;
           var dy = this.y - ELEMS[i].y;
-          var dist - Math.sqrt(dx*dx + dy*dy);
+          var dist = Math.sqrt(dx*dx + dy*dy);
           if (dist <= rad + ELEMS[i].rad) {
             ELEMS.splice(i, 1);
             ELEMS.splice(ELEMS.indexOf(this), 1);
