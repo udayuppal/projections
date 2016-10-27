@@ -131,6 +131,20 @@ window.onload = function () {
       ELEMS[i].update_color();
     }
     for (var j = 0; j < TO_REMOVE.length; j++) {
+      var rad = Math.random() * (MAX_RAD - MIN_RAD) + MIN_RAD;
+      var max_x = CVS.width - rad;
+      var min_x = rad;
+      var max_y = CVS.height - rad;
+      var min_y = rad;
+      do {
+        var x = generate_coordinate(max_x, min_x);
+        var y = generate_coordinate(max_y, min_y); 
+      } while (collisions_i(i, x, y, rad));
+      var vel_x = Math.random() * (MAX_VEL - MIN_VEL) + MIN_VEL;
+      var vel_y = Math.random() * (MAX_VEL - MIN_VEL) + MIN_VEL;
+      var lightness = Math.random() * (HIGH_LIGHT - LOW_LIGHT) + LOW_LIGHT;
+      var bubble = new element(x, y, vel_x, vel_y, rad, lightness);
+      ELEMS.push(bubble);
       ELEMS.splice(ELEMS.indexOf(TO_REMOVE[j]), 1);
     }
     TO_REMOVE = [];
