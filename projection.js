@@ -119,7 +119,7 @@ window.onload = function () {
       hue = (hue + 1) % 360;
       counter = 0;
     }
-    for (var i = 0; i < NUM_ELEMS; i++) {
+    for (var i = 0; i < ELEMS.length; i++) {
       ELEMS[i].collide();
       ELEMS[i].draw();
       ELEMS[i].update_motion();
