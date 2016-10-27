@@ -62,8 +62,9 @@ window.onload = function () {
       //update velocity based on big_ball
       var dx = this.x - big_ball.x;
       var dy = this.y - big_ball.y;
-      this.vel_x += (1/dx)*ACC_CONSTANT;
-      this.vel_y += (1/dy)*ACC_CONSTANT;
+      var square_const = dx*dx + dy*dy;
+      this.vel_x += (1/square_const)*ACC_CONSTANT*dx;
+      this.vel_y += (1/square_const)*ACC_CONSTANT*dy;
     }
     this.update_color = function () {
       this.color = "hsl( " + hue + ", " + SAT + "%, " + lightness + "%)";
