@@ -94,7 +94,7 @@ window.onload = function () {
     this.rad = 1;
     this.timer = 1;
     this.color = "hsl( " + hue + ", " + SAT + "%, " + lightness + "%)";
-    this.draw_and_update = function {
+    this.draw_and_update = function () {
       if (this.timer == BURST_CONSTANT) {
         BURST_REMOVE.push(this);
       } else {
@@ -105,7 +105,7 @@ window.onload = function () {
         CTX.stroke;
         CTX.closePath();
         this.rad += rad/BURST_CONSTANT;
-        this.time += 1;
+        this.timer++;
       }
     } 
   }
