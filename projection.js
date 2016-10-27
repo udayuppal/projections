@@ -29,7 +29,6 @@ window.onload = function () {
     this.rad = rad;
     this.color = "hsl( " + hue + ", " + SAT + "%, " + lightness + "%)";
     this.update_motion = function () {
-
       //update position based on velocity
       this.x = this.x + this.vel_x/SPEED_CONSTANT;
       this.y = this.y + this.vel_y/SPEED_CONSTANT;
@@ -59,6 +58,20 @@ window.onload = function () {
       CTX.fillStyle = this.color;
       CTX.fill();
       CTX.closePath();
+    }
+    this.collide = function () {
+      for (var i = 0; i < NUM_ELEMS; i++) {
+        if (ELEMS[i] != this) {
+          var dx = this.x - ELEMS[i].x;
+          var dy = this.y - ELEMS[i].y;
+          var dist - Math.sqrt(dx*dx + dy*dy);
+          if (dist <= rad + ELEMS[i].rad) {
+            ELEMS.splice(i, 1);
+            ELEMS.splice(ELEMS.indexOf(this), 1);
+            return;
+          }
+        }
+      }
     }
   }
  
