@@ -72,6 +72,7 @@ window.onload = function () {
     //track collisions
     this.collide = function () {
       for (var i = ELEMS.indexOf(this) + 1; i < ELEMS.length; i++) {
+        console.log(i);
         var dx = this.x - ELEMS[i].x;
         var dy = this.y - ELEMS[i].y;
         var dist = Math.sqrt(dx*dx + dy*dy);
