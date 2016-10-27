@@ -61,15 +61,33 @@ window.onload = function () {
       CTX.closePath();
     }
   }
-  
+ 
+  function generate_coordinate (max, min) {
+    return Math.random() * (max - min) + min;
+  }
+ 
+  function collisions_i(i, x, y, rad) {
+    for (var j = 0; j < i; j++) {
+      var dx = x - ELEMS[j].x;
+      var dy = y - ELEMS[j].y;
+      var dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist <= rad + ELEMS[j].rad) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   for (var i = 0; i < NUM_ELEMS; i++) {
     var rad = Math.random() * (MAX_RAD - MIN_RAD) + MIN_RAD;
     var max_x = CVS.width - rad;
     var min_x = rad;
     var max_y = CVS.height - rad;
     var min_y = rad;
-    var x = Math.random() * (max_x - min_x) + min_x;
-    var y = Math.random() * (max_y - min_y) + min_y;
+    do {
+      var x = generate_coordinate(max_x, min_x);
+      var y = generate_coordinate(max_y, min_y); 
+    } while (collisions_i(i, x, y, rad));
     var vel_x = Math.random() * (MAX_VEL - MIN_VEL) + MIN_VEL;
     var vel_y = Math.random() * (MAX_VEL - MIN_VEL) + MIN_VEL;
     var lightness = Math.random() * (HIGH_LIGHT - LOW_LIGHT) + LOW_LIGHT;
