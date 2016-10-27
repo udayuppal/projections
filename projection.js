@@ -4,6 +4,7 @@ window.onload = function () {
   var CTX = CVS.getContext("2d");
 
   var ELEMS = [];
+  var TO_REMOVE = [];
   var counter = 0;
   var hue = Math.floor(Math.random() * 360);
 
@@ -66,8 +67,8 @@ window.onload = function () {
           var dy = this.y - ELEMS[i].y;
           var dist = Math.sqrt(dx*dx + dy*dy);
           if (dist <= rad + ELEMS[i].rad) {
-            ELEMS.splice(i, 1);
-            ELEMS.splice(ELEMS.indexOf(this), 1);
+            TO_REMOVE.push(ELEMS[i]);
+            TO_REMOVE.push(this);
             return;
           }
         }
@@ -124,7 +125,11 @@ window.onload = function () {
       ELEMS[i].update_motion();
       ELEMS[i].update_color();
     }
-    
+    for (var j = 0; j < TO_REMOVE.length; j++) {
+      ELEMS.splice(ELEMS.indexOf(TO_REMOVE[j]), 1);
+    }
+    TO_REMOVE = [];
+
     setTimeout(function() {main();}, 1000/FPS);
   }
 
