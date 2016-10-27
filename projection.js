@@ -119,6 +119,7 @@ window.onload = function () {
       counter = 0;
     }
     for (var i = 0; i < NUM_ELEMS; i++) {
+      ELEMS[i].collide();
       ELEMS[i].draw();
       ELEMS[i].update_motion();
       ELEMS[i].update_color();
