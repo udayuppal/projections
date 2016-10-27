@@ -71,19 +71,22 @@ window.onload = function () {
 
     //track collisions
     this.collide = function () {
-      for (var i = ELEMS.indexOf(this) + 1; i < ELEMS.length; i++) {
-        console.log(i);
+      for (var i = 0; i < ELEMS.length; i++) {
         var dx = this.x - ELEMS[i].x;
         var dy = this.y - ELEMS[i].y;
         var dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist <= rad + ELEMS[i].rad) {
-          var x = 1;
-          var y = 1;
-          var rad = (this.rad + ELEMS[i].rad)/2;
-          var lightness = (this.lightness + ELEMS[i].lightness)/2;
-          BURSTS.push(new burst(x, y, rad, lightness));
-          TO_REMOVE.push(ELEMS[i]);
-          TO_REMOVE.push(this);
+        if (dist <= this.rad + ELEMS[i].rad) {
+          if (TO_REMOVE.indexOf(this) == -1 || TO_REMOVE.indexOf(ELEMS[i]) == -1) {
+            var x = 1;
+            var y = 1;
+            var rad = (this.rad + ELEMS[i].rad)/2;
+            var lightness = (this.lightness + ELEMS[i].lightness)/2;
+            BURSTS.push(new burst(x, y, rad, lightness));
+            if (TO_REMOVE.indexOf(this) == -1)
+              TO_REMOVE.push(this);
+            if (TO_REMOVE.indexOf(ELEMS[i]) == -1)
+              TO_REMOVE.push(ELEMS[i]);   
+          }
         }
       }
     }
