@@ -107,7 +107,7 @@ window.onload = function () {
     }
     for (var i = 0; i < NUM_ELEMS; i++) {
       ELEMS[i].draw();
-      ELEMS[i].update_motion();
+      //ELEMS[i].update_motion();
       ELEMS[i].update_color();
     }
     
