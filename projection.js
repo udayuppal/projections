@@ -89,18 +89,17 @@ window.onload = function () {
     this.done = false;
     this.color = "hsl( " + hue + ", " + SAT + "%, " + lightness + "%)";
     this.draw_and_update = function {
-      if (this.timer == BURST_CONSTANT) {
-        this.done = true;
-      } else {
-        CTX.beginPath)_;
-        CTX.arc(this.x, this.y, this.rad, 0, 2*Math.PI, false);
-        CTX.strokeStyle = this.color;
-        CTX.lineWidth = LINE_WIDTH;
-        CTX.stroke;
-        CTX.closePath();
-        this.rad += rad/BURST_CONSTANT;
-        this.time += 1;
-      }
+    if (this.timer == BURST_CONSTANT) {
+      this.done = true;
+    } else {
+      CTX.beginPath();
+      CTX.arc(this.x, this.y, this.rad, 0, 2*Math.PI, false);
+      CTX.strokeStyle = this.color;
+      CTX.lineWidth = LINE_WIDTH;
+      CTX.stroke;
+      CTX.closePath();
+      this.rad += rad/BURST_CONSTANT;
+      this.time += 1;
     }
   }
  
@@ -173,7 +172,6 @@ window.onload = function () {
       BURSTS[k].draw_and_update();
     }
     TO_REMOVE = [];
-    console.log(counter);
 
     setTimeout(function() {main();}, 1000/FPS);
   }
