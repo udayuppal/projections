@@ -88,25 +88,26 @@ window.onload = function () {
     }
   }
 
-  function burst (x, y, rad, lightness) {
+  function burst(x, y, rad, lightness) {
     this.x = x;
     this.y = y;
     this.rad = 1;
     this.timer = 1;
     this.color = "hsl( " + hue + ", " + SAT + "%, " + lightness + "%)";
     this.draw_and_update = function {
-    if (this.timer == BURST_CONSTANT) {
-      BURST_REMOVE.push(this);
-    } else {
-      CTX.beginPath();
-      CTX.arc(this.x, this.y, this.rad, 0, 2*Math.PI, false);
-      CTX.strokeStyle = this.color;
-      CTX.lineWidth = LINE_WIDTH;
-      CTX.stroke;
-      CTX.closePath();
-      this.rad += rad/BURST_CONSTANT;
-      this.time += 1;
-    }
+      if (this.timer == BURST_CONSTANT) {
+        BURST_REMOVE.push(this);
+      } else {
+        CTX.beginPath();
+        CTX.arc(this.x, this.y, this.rad, 0, 2*Math.PI, false);
+        CTX.strokeStyle = this.color;
+        CTX.lineWidth = LINE_WIDTH;
+        CTX.stroke;
+        CTX.closePath();
+        this.rad += rad/BURST_CONSTANT;
+        this.time += 1;
+      }
+    } 
   }
  
   function generate_coordinate (max, min) {
