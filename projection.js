@@ -94,10 +94,10 @@ window.onload = function () {
       elem_a.vel_y = vel_ay;
       elem_b.vel_x = vel_bx;
       elem_b.vel_y = vel_by;
-      elem_a.x = elem_a.x + this.vel_x/SPEED_CONSTANT;
-      elem_a.y = elem_a.y + this.vel_y/SPEED_CONSTANT;
-      elem_b.x = elem_b.x + this.vel_x/SPEED_CONSTANT;
-      elem_b.y = elem_b.y + this.vel_y/SPEED_CONSTANT;
+      elem_a.x = elem_a.x + elem_a.vel_x/SPEED_CONSTANT;
+      elem_a.y = elem_a.y + elem_a.vel_y/SPEED_CONSTANT;
+      elem_b.x = elem_b.x + elem_b.vel_x/SPEED_CONSTANT;
+      elem_b.y = elem_b.y + elem_b.vel_y/SPEED_CONSTANT;
     }
   }
 
