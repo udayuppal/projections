@@ -4,11 +4,12 @@ window.onload = function () {
   var CTX = CVS.getContext("2d");
 
   var ELEMS = [];
+  var TO_REMOVE = [];
   var counter = 0;
   var hue = Math.floor(Math.random() * 360);
 
   const FPS = 100;
-  const SPEED_CONSTANT = 20;
+  const SPEED_CONSTANT = 50;
   const STD_LINE_WIDTH = 3;
   const NUM_ELEMS = 30;
   const MIN_RAD = 15;
@@ -60,14 +61,19 @@ window.onload = function () {
       CTX.closePath();
     }
     this.collide = function () {
-      for (var i = 0; i < NUM_ELEMS; i++) {
+      for (var i = 0; i < ELEMS.length; i++) {
         if (ELEMS[i] != this) {
           var dx = this.x - ELEMS[i].x;
           var dy = this.y - ELEMS[i].y;
           var dist = Math.sqrt(dx*dx + dy*dy);
           if (dist <= rad + ELEMS[i].rad) {
-            ELEMS.splice(i, 1);
-            ELEMS.splice(ELEMS.indexOf(this), 1);
+            if (TO_REMOVE.indexOf(ELEMS[i]) == -1) {
+              TO_REMOVE.push(ELEMS[i]);
+            }
+            if (TO_REMOVE.indexOf(this) == -1) {
+              TO_REMOVE.push(this);
+            }
+            console.log(TO_REMOVE);
             return;
           }
         }
@@ -118,13 +124,17 @@ window.onload = function () {
       hue = (hue + 1) % 360;
       counter = 0;
     }
-    for (var i = 0; i < NUM_ELEMS; i++) {
+    for (var i = 0; i < ELEMS.length; i++) {
       ELEMS[i].collide();
       ELEMS[i].draw();
       ELEMS[i].update_motion();
       ELEMS[i].update_color();
     }
-    
+    for (var j = 0; j < TO_REMOVE.length; j++) {
+      ELEMS.splice(ELEMS.indexOf(TO_REMOVE[j]), 1);
+    }
+    TO_REMOVE = [];
+
     setTimeout(function() {main();}, 1000/FPS);
   }
 
