@@ -4,7 +4,6 @@ window.onload = function () {
   var CTX = CVS.getContext("2d");
 
   var ELEMS = [];
-  var TO_REMOVE = [];
   var counter = 0;
   var hue = Math.floor(Math.random() * 360);
 
@@ -50,34 +49,19 @@ window.onload = function () {
         this.y = CVS.height - this.rad;
       }
     }
+
+    //update color
     this.update_color = function () {
       this.color = "hsl( " + hue + ", " + SAT + "%, " + lightness + "%)";
     }
+
+    //draw
     this.draw = function () {
       CTX.beginPath();
       CTX.arc(this.x, this.y, this.rad, 0, 2*Math.PI, false);
       CTX.fillStyle = this.color;
       CTX.fill();
       CTX.closePath();
-    }
-    this.collide = function () {
-      for (var i = 0; i < ELEMS.length; i++) {
-        if (ELEMS[i] != this) {
-          var dx = this.x - ELEMS[i].x;
-          var dy = this.y - ELEMS[i].y;
-          var dist = Math.sqrt(dx*dx + dy*dy);
-          if (dist <= rad + ELEMS[i].rad) {
-            if (TO_REMOVE.indexOf(ELEMS[i]) == -1) {
-              TO_REMOVE.push(ELEMS[i]);
-            }
-            if (TO_REMOVE.indexOf(this) == -1) {
-              TO_REMOVE.push(this);
-            }
-            console.log(TO_REMOVE);
-            return;
-          }
-        }
-      }
     }
   }
  
@@ -91,10 +75,26 @@ window.onload = function () {
       var dy = y - ELEMS[j].y;
       var dist = Math.sqrt(dx*dx + dy*dy);
       if (dist <= rad + ELEMS[j].rad) {
-        return true;
+        var dir_a = Math.atan2(elem_a.vel_y, elem_a.vel_x);
+        var vel_a = Math.sqrt(elem_a.vel_x*elem_a.vel_x + elem_a.vel_y*elem_a.vel_y);
+        var dir_b = Math.atan2(elem_b.vel_y, elem_b.vel_x);
+        var vel_b = Math.sqrt(elem_b.vel_x*elem_b.vel_x + elem_b.vel_y*elem_b.vel_y);
+        elem_a.vel_x = Math.cos(dir_b)*vel_a;
+        elem_a.vel_y = Math.sin(dir_b)*vel_a;
+        elem_b.vel_x = Math.cos(dir_b)*vel_a;
+        elem_b.vel_y = Math.sin(dir_b)*vel_a;
       }
     }
     return false;
+  }
+
+  function collide(elem_a, elem_b) {
+    var dx = elem_a.x - elem_b.x;
+    var dy = elem_a.y - elem_b.y;
+    var dist = Math.sqrt(dx*dx + dy*dy);
+    if (dist <= elem_a.rad + elem_b.rad) {
+      
+    }
   }
 
   for (var i = 0; i < NUM_ELEMS; i++) {
@@ -119,21 +119,22 @@ window.onload = function () {
     CTX.fillStyle = BG;
     CTX.fillRect(0, 0, CVS.width, CVS.height);
     counter++;
+    var i, j;
 
     if (counter % COLOR_CHANGE == 0) {
       hue = (hue + 1) % 360;
       counter = 0;
     }
-    for (var i = 0; i < ELEMS.length; i++) {
-      ELEMS[i].collide();
+    for (i = 0; i < ELEMS.length; i++) {
       ELEMS[i].draw();
       ELEMS[i].update_motion();
       ELEMS[i].update_color();
     }
-    for (var j = 0; j < TO_REMOVE.length; j++) {
-      ELEMS.splice(ELEMS.indexOf(TO_REMOVE[j]), 1);
+    for (i = 0; i < ELEMS.length; i++) {
+      for (j = i+1; j < ELEMS.length; j++) {
+        collide(i,j);
+      }
     }
-    TO_REMOVE = [];
 
     setTimeout(function() {main();}, 1000/FPS);
   }
