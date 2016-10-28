@@ -97,11 +97,11 @@ window.onload = function () {
       var col_y = ((elem_a.y * elem_b.rad) + (elem_b.y * elem_a.rad)) / (elem_a.rad + elem_b.rad);
       var rad = (elem_a.rad + elem_b.rad);
       if (rad < MIN_RAD + (MAX_RAD - MIN_RAD)/3) {
-        POP1.play();
+        POP_1.play();
       } else if (rad > MAX_RAD - (MAX_RAD - MIN_RAD)/3) {
-        POP2.play();
+        POP_2.play();
       } else {
-        POP3.play();
+        POP_3.play();
       }
       BURSTS.push(new burst(col_x, col_y, rad));
       var vel_ax = (elem_a.vel_x * (elem_a.rad - elem_b.rad) + (2 * elem_b.rad * elem_b.vel_x)) / (elem_a.rad + elem_b.rad);
