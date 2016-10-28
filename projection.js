@@ -2,9 +2,10 @@ window.onload = function () {
   //original loading in of canvas and context
   var CVS = document.getElementById("projections");
   var CTX = CVS.getContext("2d");
-  var POP_1 = new Audio('pop1.mp3');
-  var POP_2 = new Audio('pop2.mp3');
-  var POP_3 = new Audio('pop3.mp3');
+  var POP = [];
+  POP.push(new Audio('pop1.mp3'));
+  POP.push(new Audio('pop2.mp3'));
+  POP.push(new Audio('pop3.mp3'));
 
   const FPS = 100;
   const SPEED_CONSTANT = 30;
@@ -96,13 +97,8 @@ window.onload = function () {
       var col_x = ((elem_a.x * elem_b.rad) + (elem_b.x * elem_a.rad)) / (elem_a.rad + elem_b.rad);
       var col_y = ((elem_a.y * elem_b.rad) + (elem_b.y * elem_a.rad)) / (elem_a.rad + elem_b.rad);
       var rad = (elem_a.rad + elem_b.rad);
-      if (rad < MIN_RAD + (MAX_RAD - MIN_RAD)/3) {
-        POP_1.play();
-      } else if (rad > MAX_RAD - (MAX_RAD - MIN_RAD)/3) {
-        POP_2.play();
-      } else {
-        POP_3.play();
-      }
+      var which_play = Math.floor(Math.random() * 2);
+      POP[which_play].play();
       BURSTS.push(new burst(col_x, col_y, rad));
       var vel_ax = (elem_a.vel_x * (elem_a.rad - elem_b.rad) + (2 * elem_b.rad * elem_b.vel_x)) / (elem_a.rad + elem_b.rad);
       var vel_ay = (elem_a.vel_y * (elem_a.rad - elem_b.rad) + (2 * elem_b.rad * elem_b.vel_y)) / (elem_a.rad + elem_b.rad);
