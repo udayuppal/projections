@@ -94,10 +94,10 @@ window.onload = function () {
       elem_a.vel_y = Math.sin(dir_b)*vel_a;
       elem_b.vel_x = Math.cos(dir_a)*vel_b;
       elem_b.vel_y = Math.sin(dir_a)*vel_b;
-      elem_a.x += elem_a.vel_x;
-      elem_a.y += elem_a.vel_y;
-      elem_b.x += elem_b.vel_x;
-      elem_b.y += elem_b.vel_y;
+      elem_a.x += elem_a.vel_x/SPEED_CONSTANT;
+      elem_a.y += elem_a.vel_y/SPEED_CONSTANT;
+      elem_b.x += elem_b.vel_x/SPEED_CONSTANT;
+      elem_b.y += elem_b.vel_y/SPEED_CONSTANT;
     }
   }
 
