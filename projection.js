@@ -3,10 +3,6 @@ window.onload = function () {
   var CVS = document.getElementById("projections");
   var CTX = CVS.getContext("2d");
 
-  var ELEMS = [];
-  var counter = 0;
-  var hue = Math.floor(Math.random() * 360);
-
   const FPS = 100;
   const SPEED_CONSTANT = 50;
   const STD_LINE_WIDTH = 3;
@@ -19,7 +15,15 @@ window.onload = function () {
   const LOW_LIGHT = 30;
   const HIGH_LIGHT = 70;
   const COLOR_CHANGE = 50;
+  const BURST_CONSTANT = 30;
   const BG = "black";
+
+  var ELEMS = [];
+  var counter = 0;
+  var hue = Math.floor(Math.random() * 360);
+  var BURSTS = [];
+  var BURST_REMOVE = [];
+  var BURST_STROKE = "hsl( " + hue + ", " + SAT + "%, " + (LOW_LIGHT + HIGH_LIGHT)/2 + "%)";
 
   function element(x, y, vel_x, vel_y, rad, lightness) {
     this.x = x;
@@ -89,7 +93,7 @@ window.onload = function () {
       var col_x = ((elem_a.x * elem_b.rad) + (elem_b.x * elem_a.rad)) / (elem_a.rad + elem_b.rad);
       var col_y = ((elem_a.x * elem_b.rad) + (elem_b.x * elem_a.rad)) / (elem_a.rad + elem_b.rad);
       var rad = (elem_a.rad + elem_b.rad)/2;
-      trigger_burst(col_x, col_y, rad);
+      BURSTS.push(new burst(col_x, col_y, rad));
       var vel_ax = (elem_a.vel_x * (elem_a.rad - elem_b.rad) + (2 * elem_b.rad * elem_b.vel_x)) / (elem_a.rad + elem_b.rad);
       var vel_ay = (elem_a.vel_y * (elem_a.rad - elem_b.rad) + (2 * elem_b.rad * elem_b.vel_y)) / (elem_a.rad + elem_b.rad);
       var vel_bx = (elem_b.vel_x * (elem_b.rad - elem_a.rad) + (2 * elem_a.rad * elem_a.vel_x)) / (elem_a.rad + elem_b.rad);
@@ -105,9 +109,24 @@ window.onload = function () {
     }
   }
 
-  function trigger_burst(x, y, rad) {
-
-
+  function burst(x, y, rad) {
+    this.x = x;
+    this.y = y;
+    this.rad = 1;
+    this.timer = 0;
+    this.draw = function () {
+      if (this.timer < BURST_CONSTANT) {
+        CTX.beginPath();
+        CTX.arc(this.x, this.y, this.rad, 0, 2*Math.PI, false);
+        CTX.strokeStyle = BURST_STROKE;
+        CTX.stroke();
+        CTX.closePath();
+        this.rad += rad/BURST_CONSTANT;
+        this.timer++;
+      } else {
+        BURST_REMOVE.push(this);
+      }
+    }
   }
 
   for (var i = 0; i < NUM_ELEMS; i++) {
@@ -137,6 +156,7 @@ window.onload = function () {
     if (counter % COLOR_CHANGE == 0) {
       hue = (hue + 1) % 360;
       counter = 0;
+      BURST_STROKE = "hsl( " + hue + ", " + SAT + "%, " + (LOW_LIGHT + HIGH_LIGHT)/2 + "%)";
     }
     for (i = 0; i < ELEMS.length; i++) {
       ELEMS[i].draw();
@@ -148,6 +168,10 @@ window.onload = function () {
         collide(ELEMS[i],ELEMS[j]);
       }
     }
+    for (i = 0; i < BURST_REMOVE.length; i++) {
+      BURSTS.splice(BURSTS.indexOf(BURST_REMOVE[i]),1);
+    }
+    BURST_REMOVE = [];
 
     setTimeout(function() {main();}, 1000/FPS);
   }
