@@ -9,7 +9,7 @@ window.onload = function () {
   const FPS = 100;
   const SPEED_CONSTANT = 30;
   const LINE_WIDTH = 1;
-  const NUM_ELEMS = 15;
+  const NUM_ELEMS = 25;
   const MIN_RAD = 15;
   const MAX_RAD = 35;
   const MAX_VEL = 10;
@@ -18,7 +18,7 @@ window.onload = function () {
   const LOW_LIGHT = 30;
   const HIGH_LIGHT = 70;
   const COLOR_CHANGE = 50;
-  const BURST_CONSTANT = 50;
+  const BURST_CONSTANT = 60;
   const BG = "black";
 
   var ELEMS = [];
