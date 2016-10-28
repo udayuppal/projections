@@ -92,7 +92,7 @@ window.onload = function () {
     if (dist <= elem_a.rad + elem_b.rad) {
       var col_x = ((elem_a.x * elem_b.rad) + (elem_b.x * elem_a.rad)) / (elem_a.rad + elem_b.rad);
       var col_y = ((elem_a.y * elem_b.rad) + (elem_b.y * elem_a.rad)) / (elem_a.rad + elem_b.rad);
-      var rad = (elem_a.rad + elem_b.rad)/2;
+      var rad = (elem_a.rad + elem_b.rad);
       BURSTS.push(new burst(col_x, col_y, rad));
       var vel_ax = (elem_a.vel_x * (elem_a.rad - elem_b.rad) + (2 * elem_b.rad * elem_b.vel_x)) / (elem_a.rad + elem_b.rad);
       var vel_ay = (elem_a.vel_y * (elem_a.rad - elem_b.rad) + (2 * elem_b.rad * elem_b.vel_y)) / (elem_a.rad + elem_b.rad);
