@@ -75,14 +75,7 @@ window.onload = function () {
       var dy = y - ELEMS[j].y;
       var dist = Math.sqrt(dx*dx + dy*dy);
       if (dist <= rad + ELEMS[j].rad) {
-        var dir_a = Math.atan2(elem_a.vel_y, elem_a.vel_x);
-        var vel_a = Math.sqrt(elem_a.vel_x*elem_a.vel_x + elem_a.vel_y*elem_a.vel_y);
-        var dir_b = Math.atan2(elem_b.vel_y, elem_b.vel_x);
-        var vel_b = Math.sqrt(elem_b.vel_x*elem_b.vel_x + elem_b.vel_y*elem_b.vel_y);
-        elem_a.vel_x = Math.cos(dir_b)*vel_a;
-        elem_a.vel_y = Math.sin(dir_b)*vel_a;
-        elem_b.vel_x = Math.cos(dir_b)*vel_a;
-        elem_b.vel_y = Math.sin(dir_b)*vel_a;
+        return true;
       }
     }
     return false;
@@ -93,7 +86,14 @@ window.onload = function () {
     var dy = elem_a.y - elem_b.y;
     var dist = Math.sqrt(dx*dx + dy*dy);
     if (dist <= elem_a.rad + elem_b.rad) {
-      
+      var dir_a = Math.atan2(elem_a.vel_y, elem_a.vel_x);
+      var vel_a = Math.sqrt(elem_a.vel_x*elem_a.vel_x + elem_a.vel_y*elem_a.vel_y);
+      var dir_b = Math.atan2(elem_b.vel_y, elem_b.vel_x);
+      var vel_b = Math.sqrt(elem_b.vel_x*elem_b.vel_x + elem_b.vel_y*elem_b.vel_y);
+      elem_a.vel_x = Math.cos(dir_b)*vel_a;
+      elem_a.vel_y = Math.sin(dir_b)*vel_a;
+      elem_b.vel_x = Math.cos(dir_b)*vel_a;
+      elem_b.vel_y = Math.sin(dir_b)*vel_a;
     }
   }
 
