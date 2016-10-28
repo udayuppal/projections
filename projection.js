@@ -5,7 +5,7 @@ window.onload = function () {
 
   const FPS = 100;
   const SPEED_CONSTANT = 50;
-  const LINE_WIDTH = 3;
+  const LINE_WIDTH = 1;
   const NUM_ELEMS = 30;
   const MIN_RAD = 15;
   const MAX_RAD = 35;
