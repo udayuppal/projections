@@ -4,14 +4,11 @@ window.onload = function () {
   var CTX = CVS.getContext("2d");
 
   var ELEMS = [];
-  var TO_REMOVE = [];
-  var BURSTS = [];
-  var BURST_REMOVE = [];
   var counter = 0;
   var hue = Math.floor(Math.random() * 360);
 
   const FPS = 100;
-  const SPEED_CONSTANT = 40;
+  const SPEED_CONSTANT = 20;
   const STD_LINE_WIDTH = 3;
   const NUM_ELEMS = 30;
   const MIN_RAD = 15;
@@ -22,8 +19,6 @@ window.onload = function () {
   const LOW_LIGHT = 30;
   const HIGH_LIGHT = 70;
   const COLOR_CHANGE = 50;
-  const BURST_CONSTANT = 10;
-  const LINE_WIDTH = 2;
   const BG = "black";
 
   function element(x, y, vel_x, vel_y, rad, lightness) {
@@ -54,13 +49,9 @@ window.onload = function () {
         this.y = CVS.height - this.rad;
       }
     }
-
-    //update color
     this.update_color = function () {
       this.color = "hsl( " + hue + ", " + SAT + "%, " + lightness + "%)";
     }
-
-    //draw
     this.draw = function () {
       CTX.beginPath();
       CTX.arc(this.x, this.y, this.rad, 0, 2*Math.PI, false);
@@ -68,50 +59,20 @@ window.onload = function () {
       CTX.fill();
       CTX.closePath();
     }
-
-    //track collisions
     this.collide = function () {
-      for (var i = 0; i < ELEMS.length; i++) {
-        var dx = this.x - ELEMS[i].x;
-        var dy = this.y - ELEMS[i].y;
-        var dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist <= this.rad + ELEMS[i].rad) {
-          if (TO_REMOVE.indexOf(this) == -1 || TO_REMOVE.indexOf(ELEMS[i]) == -1) {
-            var x = 1;
-            var y = 1;
-            var rad = (this.rad + ELEMS[i].rad)/2;
-            var lightness = (this.lightness + ELEMS[i].lightness)/2;
-            BURSTS.push(new burst(x, y, rad, lightness));
-            if (TO_REMOVE.indexOf(this) == -1)
-              TO_REMOVE.push(this);
-            if (TO_REMOVE.indexOf(ELEMS[i]) == -1)
-              TO_REMOVE.push(ELEMS[i]);   
+      for (var i = 0; i < NUM_ELEMS; i++) {
+        if (ELEMS[i] != this) {
+          var dx = this.x - ELEMS[i].x;
+          var dy = this.y - ELEMS[i].y;
+          var dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist <= rad + ELEMS[i].rad) {
+            ELEMS.splice(i, 1);
+            ELEMS.splice(ELEMS.indexOf(this), 1);
+            return;
           }
         }
       }
     }
-  }
-
-  function burst(x, y, rad, lightness) {
-    this.x = x;
-    this.y = y;
-    this.rad = 1;
-    this.timer = 1;
-    this.color = "hsl( " + hue + ", " + SAT + "%, " + lightness + "%)";
-    this.draw_and_update = function () {
-      if (this.timer == BURST_CONSTANT) {
-        BURST_REMOVE.push(this);
-      } else {
-        CTX.beginPath();
-        CTX.arc(this.x, this.y, this.rad, 0, 2*Math.PI, false);
-        CTX.strokeStyle = this.color;
-        CTX.lineWidth = LINE_WIDTH;
-        CTX.stroke;
-        CTX.closePath();
-        this.rad += rad/BURST_CONSTANT;
-        this.timer++;
-      }
-    } 
   }
  
   function generate_coordinate (max, min) {
@@ -155,39 +116,15 @@ window.onload = function () {
 
     if (counter % COLOR_CHANGE == 0) {
       hue = (hue + 1) % 360;
+      counter = 0;
     }
-    for (var i = 0; i < ELEMS.length; i++) {
+    for (var i = 0; i < NUM_ELEMS; i++) {
       ELEMS[i].collide();
       ELEMS[i].draw();
       ELEMS[i].update_motion();
       ELEMS[i].update_color();
     }
-    for (var j = 0; j < TO_REMOVE.length; j++) {
-      var rad = Math.random() * (MAX_RAD - MIN_RAD) + MIN_RAD;
-      var max_x = CVS.width - rad;
-      var min_x = rad;
-      var max_y = CVS.height - rad;
-      var min_y = rad;
-      do {
-        var x = generate_coordinate(max_x, min_x);
-        var y = generate_coordinate(max_y, min_y); 
-      } while (collisions_i(i, x, y, rad));
-      var vel_x = Math.random() * (MAX_VEL - MIN_VEL) + MIN_VEL;
-      var vel_y = Math.random() * (MAX_VEL - MIN_VEL) + MIN_VEL;
-      var lightness = Math.random() * (HIGH_LIGHT - LOW_LIGHT) + LOW_LIGHT;
-      var bubble = new element(x, y, vel_x, vel_y, rad, lightness);
-      ELEMS.push(bubble);
-      ELEMS.splice(ELEMS.indexOf(TO_REMOVE[j]), 1);
-    }
-    for (var k = 0; k < BURSTS.length; k++) {
-      BURSTS[k].draw_and_update();
-    }
-    for (var l = 0; l < BURST_REMOVE.length; l++) {
-      BURSTS.splice(BURSTS.indexOf(BURST_REMOVE[l]), 1);
-    }
-    BURST_REMOVE = [];
-    TO_REMOVE = [];
-
+    
     setTimeout(function() {main();}, 1000/FPS);
   }
 
