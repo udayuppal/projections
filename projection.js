@@ -86,6 +86,10 @@ window.onload = function () {
     var dy = elem_a.y - elem_b.y;
     var dist = Math.sqrt(dx*dx + dy*dy);
     if (dist <= elem_a.rad + elem_b.rad) {
+      var col_x = ((elem_a.x * elem_b.rad) + (elem_b.x * elem_a.rad)) / (elem_a.rad + elem_b.rad);
+      var col_y = ((elem_a.x * elem_b.rad) + (elem_b.x * elem_a.rad)) / (elem_a.rad + elem_b.rad);
+      var rad = (elem_a.rad + elem_b.rad)/2;
+      trigger_burst(col_x, col_y, rad);
       var vel_ax = (elem_a.vel_x * (elem_a.rad - elem_b.rad) + (2 * elem_b.rad * elem_b.vel_x)) / (elem_a.rad + elem_b.rad);
       var vel_ay = (elem_a.vel_y * (elem_a.rad - elem_b.rad) + (2 * elem_b.rad * elem_b.vel_y)) / (elem_a.rad + elem_b.rad);
       var vel_bx = (elem_b.vel_x * (elem_b.rad - elem_a.rad) + (2 * elem_a.rad * elem_a.vel_x)) / (elem_a.rad + elem_b.rad);
@@ -99,6 +103,11 @@ window.onload = function () {
       elem_b.x = elem_b.x + elem_b.vel_x/SPEED_CONSTANT;
       elem_b.y = elem_b.y + elem_b.vel_y/SPEED_CONSTANT;
     }
+  }
+
+  function trigger_burst(x, y, rad) {
+
+
   }
 
   for (var i = 0; i < NUM_ELEMS; i++) {
