@@ -4,7 +4,7 @@ window.onload = function () {
   var CTX = CVS.getContext("2d");
 
   const FPS = 100;
-  const SPEED_CONSTANT = 50;
+  const SPEED_CONSTANT = 40;
   const LINE_WIDTH = 1;
   const NUM_ELEMS = 30;
   const MIN_RAD = 15;
