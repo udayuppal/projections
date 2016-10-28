@@ -86,18 +86,18 @@ window.onload = function () {
     var dy = elem_a.y - elem_b.y;
     var dist = Math.sqrt(dx*dx + dy*dy);
     if (dist <= elem_a.rad + elem_b.rad) {
-      var dir_a = Math.atan2(elem_a.vel_y, elem_a.vel_x);
-      var vel_a = Math.sqrt(elem_a.vel_x*elem_a.vel_x + elem_a.vel_y*elem_a.vel_y);
-      var dir_b = Math.atan2(elem_b.vel_y, elem_b.vel_x);
-      var vel_b = Math.sqrt(elem_b.vel_x*elem_b.vel_x + elem_b.vel_y*elem_b.vel_y);
-      elem_a.vel_x = Math.cos(dir_b)*vel_a;
-      elem_a.vel_y = Math.sin(dir_b)*vel_a;
-      elem_b.vel_x = Math.cos(dir_a)*vel_b;
-      elem_b.vel_y = Math.sin(dir_a)*vel_b;
-      elem_a.x += elem_a.vel_x/SPEED_CONSTANT;
-      elem_a.y += elem_a.vel_y/SPEED_CONSTANT;
-      elem_b.x += elem_b.vel_x/SPEED_CONSTANT;
-      elem_b.y += elem_b.vel_y/SPEED_CONSTANT;
+      vel_ax = (elem_a.vel_x * (elem_a.radius – elem_b.radius) + (2 * elem_b.radius * elem_b.vel_x)) / (elem_a.radius + elem_b.radius);
+      vel_ay = (elem_a.vel_y * (elem_a.radius – elem_b.radius) + (2 * elem_b.radius * elem_b.vel_y)) / (elem_a.radius + elem_b.radius);
+      vel_bx = (elem_b.vel_x * (elem_b.radius – elem_a.radius) + (2 * elem_a.radius * elem_a.vel_x)) / (elem_a.radius + elem_b.radius);
+      vel_by = (elem_b.vel_y * (elem_b.radius – elem_a.radius) + (2 * elem_a.radius * elem_a.vel_y)) / (elem_a.radius + elem_b.radius);
+      elem_a.vel_x = vel_ax;
+      elem_a.vel_y = vel_ay;
+      elem_b.vel_x = vel_bx;
+      elem_b.vel_y = vel_by;
+      elem_a.x = elem_a.x + this.vel_x/SPEED_CONSTANT;
+      elem_a.y = elem_a.y + this.vel_y/SPEED_CONSTANT;
+      elem_b.x = elem_b.x + this.vel_x/SPEED_CONSTANT;
+      elem_b.y = elem_b.y + this.vel_y/SPEED_CONSTANT;
     }
   }
 
