@@ -132,7 +132,7 @@ window.onload = function () {
     }
     for (i = 0; i < ELEMS.length; i++) {
       for (j = i+1; j < ELEMS.length; j++) {
-        collide(i,j);
+        collide(ELEMS[i],ELEMS[j]);
       }
     }
 
