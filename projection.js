@@ -92,8 +92,8 @@ window.onload = function () {
       var vel_b = Math.sqrt(elem_b.vel_x*elem_b.vel_x + elem_b.vel_y*elem_b.vel_y);
       elem_a.vel_x = Math.cos(dir_b)*vel_a;
       elem_a.vel_y = Math.sin(dir_b)*vel_a;
-      elem_b.vel_x = Math.cos(dir_b)*vel_a;
-      elem_b.vel_y = Math.sin(dir_b)*vel_a;
+      elem_b.vel_x = Math.cos(dir_a)*vel_b;
+      elem_b.vel_y = Math.sin(dir_a)*vel_b;
     }
   }
 
