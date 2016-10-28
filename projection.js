@@ -3,7 +3,6 @@ window.onload = function () {
   var CVS = document.getElementById("projections");
   var CTX = CVS.getContext("2d");
   var POP = [];
-  POP.push(new Audio('pop1.mp3'));
   POP.push(new Audio('pop2.mp3'));
   POP.push(new Audio('pop3.mp3'));
 
