@@ -168,6 +168,9 @@ window.onload = function () {
         collide(ELEMS[i],ELEMS[j]);
       }
     }
+    for (i = 0; i < BURSTS.length; i++) {
+      BURSTS[i].draw();
+    }
     for (i = 0; i < BURST_REMOVE.length; i++) {
       BURSTS.splice(BURSTS.indexOf(BURST_REMOVE[i]),1);
     }
