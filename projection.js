@@ -18,7 +18,7 @@ window.onload = function () {
   const LOW_LIGHT = 30;
   const HIGH_LIGHT = 70;
   const COLOR_CHANGE = 50;
-  const BURST_CONSTANT = 10000;
+  const BURST_CONSTANT = 500;
   const BG = "black";
 
   var ELEMS = [];
@@ -95,7 +95,7 @@ window.onload = function () {
     if (dist <= elem_a.rad + elem_b.rad) {
       var col_x = ((elem_a.x * elem_b.rad) + (elem_b.x * elem_a.rad)) / (elem_a.rad + elem_b.rad);
       var col_y = ((elem_a.y * elem_b.rad) + (elem_b.y * elem_a.rad)) / (elem_a.rad + elem_b.rad);
-      var rad = (elem_a.rad + elem_b.rad);
+      var rad = CVS.width*1.5;
       var which_play = Math.floor(Math.random() * 2);
       POP[which_play].play();
       BURSTS.push(new burst(col_x, col_y, rad));
