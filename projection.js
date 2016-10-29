@@ -18,7 +18,7 @@ window.onload = function () {
   const LOW_LIGHT = 30;
   const HIGH_LIGHT = 70;
   const COLOR_CHANGE = 50;
-  const BURST_CONSTANT = 500;
+  const BURST_CONSTANT = 1000;
   const BG = "black";
 
   var ELEMS = [];
